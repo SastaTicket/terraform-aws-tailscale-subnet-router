@@ -1,10 +1,10 @@
 resource "aws_iam_role" "tailscale_role" {
-  name               = var.name_suffix != "" ? "${var.name}-${var.name_suffix}" : var.name
+  name               = format("%v-tailscale-%s", local.prefix, var.region)
   assume_role_policy = file("${path.module}/iam/assume-role.json")
 }
 
 resource "aws_iam_instance_profile" "tailscale_profile" {
-  name = var.name_suffix != "" ? "${var.name}-${var.name_suffix}" : var.name
+  name = format("%v-tailscale-%s", local.prefix, var.region)
   role = aws_iam_role.tailscale_role.name
 }
 
