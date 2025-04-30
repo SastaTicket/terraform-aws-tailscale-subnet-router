@@ -113,8 +113,8 @@ variable "tags" {
   default     = {}
 }
 
-# variable "name_suffix" {
-#   type        = string
-#   description = "Optional suffix to make the name unique (e.g., random_pet)"
-#   default     = ""
-# }
+variable "name_suffix" {
+  type        = string
+  description = "Optional suffix to make the name unique (e.g., random_pet)"
+  default     = ""
+}
