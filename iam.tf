@@ -1,15 +1,10 @@
-resource "random_pet" "tailscale" {
-  length    = 2
-  separator = "-"
-}
-
 resource "aws_iam_role" "tailscale_role" {
-  name = var.name_suffix != "" ? format("%v-tailscale-%s-%s", var.env, var.region, var.name_suffix) : format("%v-tailscale-%s", var.env, var.region)
+  name               = var.name_suffix != "" ? format("%s-%s", var.name, var.name_suffix) : var.name
   assume_role_policy = file("${path.module}/iam/assume-role.json")
 }
 
 resource "aws_iam_instance_profile" "tailscale_profile" {
-  name = aws_iam_role.tailscale_role.name
+  name = var.name_suffix != "" ? format("%s-%s", var.name, var.name_suffix) : var.name
   role = aws_iam_role.tailscale_role.name
 }
 
