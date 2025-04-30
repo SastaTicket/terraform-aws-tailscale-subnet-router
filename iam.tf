@@ -1,10 +1,9 @@
-resource "random_pet" "tailscale" {
-  length    = 2
-  separator = "-"
+resource "random_id" "tailscale" {
+  byte_length = 4
 }
 
 resource "aws_iam_role" "tailscale_role" {
-  name               = format("%v-tailscale-%s-%s", local.prefix, var.region, random_pet.tailscale.id)
+  name               = format("%v-tailscale-%s-%s", local.prefix, var.region, random_id.tailscale.hex)
   assume_role_policy = file("${path.module}/iam/assume-role.json")
 }
 
